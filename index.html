@@ -95,7 +95,7 @@
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
-    break-inside: avoid; /* Prevents splitting on print pages */
+    break-inside: avoid;
   }
 
   #bam-spotlight-widget .card:hover {
@@ -181,52 +181,14 @@
 
   /* --- PRINT STYLES --- */
   @media print {
-    /* Hide everything on the page except our widget */
-    body * {
-      visibility: hidden;
-    }
-    
-    /* Make the widget visible */
-    #bam-spotlight-widget, #bam-spotlight-widget * {
-      visibility: visible;
-    }
-
-    /* Position the widget at the top-left of the paper */
-    #bam-spotlight-widget {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      border: none;
-      background: white;
-      padding: 0;
-    }
-
-    /* Hide the controls (search and print button) */
-    #bam-spotlight-widget .controls {
-      display: none;
-    }
-
-    /* Adjust layout for paper */
-    #bam-spotlight-widget .grid {
-      display: block; /* Stack items vertically */
-    }
-
-    #bam-spotlight-widget .card {
-      box-shadow: none;
-      border: 1px solid #ccc;
-      margin-bottom: 15px; /* Spacing between items on paper */
-      page-break-inside: avoid; /* Don't cut a book in half */
-    }
-    
-    /* Ensure colors print (browsers sometimes block background colors) */
-    #bam-spotlight-widget .priority-strip, 
-    #bam-spotlight-widget .badge {
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
+    body * { visibility: hidden; }
+    #bam-spotlight-widget, #bam-spotlight-widget * { visibility: visible; }
+    #bam-spotlight-widget { position: absolute; left: 0; top: 0; width: 100%; border: none; background: white; padding: 0; }
+    #bam-spotlight-widget .controls { display: none; }
+    #bam-spotlight-widget .grid { display: block; }
+    #bam-spotlight-widget .card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 15px; page-break-inside: avoid; }
+    #bam-spotlight-widget .priority-strip, #bam-spotlight-widget .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
-
 </style>
 </head>
 <body>
@@ -377,6 +339,134 @@
       </div>
       <div class="instruction">
         <strong>Setup:</strong> Bin placement on lower shelf endcap (accessible to toddlers).
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/34495e/white?text=Bio" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Spare</div>
+          <div class="author">Prince Harry</div>
+          <div class="meta">ISBN: 978-0593593806</div>
+          <span class="badge p-high">P2: BIOGRAPHY</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Eye level, 4 facings. Ensure price stickers are on back.
+      </div>
+    </div>
+
+    <div class="card p1">
+      <div class="priority-strip p-urgent"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/7f8c8d/white?text=Hist" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">The Wager</div>
+          <div class="author">David Grann</div>
+          <div class="meta">ISBN: 978-0385534260</div>
+          <span class="badge p-urgent">P1: CASH WRAP</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Impulse buy zone. Keep stocks full at register 1 & 2.
+      </div>
+    </div>
+
+    <div class="card p1">
+      <div class="priority-strip p-urgent"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/8e44ad/white?text=Dragon" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Fourth Wing</div>
+          <div class="author">Rebecca Yarros</div>
+          <div class="meta">ISBN: 978-1649374042</div>
+          <span class="badge p-urgent">P1: FRONT TABLE</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Primary feature. Build tower display if inventory allows.
+      </div>
+    </div>
+
+    <div class="card p3">
+      <div class="priority-strip p-standard"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/2980b9/white?text=Biz" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Thinking, Fast and Slow</div>
+          <div class="author">Daniel Kahneman</div>
+          <div class="meta">ISBN: 978-0374533557</div>
+          <span class="badge p-standard">P3: BUSINESS</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Standard alphabetical filing. Ensure spine is not cracked.
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/e91e63/white?text=Love" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">It Ends with Us</div>
+          <div class="author">Colleen Hoover</div>
+          <div class="meta">ISBN: 978-1501110368</div>
+          <span class="badge p-high">P2: TIKTOK TABLE</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> "BookTok" display area. Use pink table runner.
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/d35400/white?text=Dune" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Dune</div>
+          <div class="author">Frank Herbert</div>
+          <div class="meta">ISBN: 978-0441013593</div>
+          <span class="badge p-high">P2: FILM TIE-IN</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Move to "Now a Major Motion Picture" endcap.
+      </div>
+    </div>
+
+    <div class="card p3">
+      <div class="priority-strip p-standard"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/2c3e50/white?text=Myst" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">The Silent Patient</div>
+          <div class="author">Alex Michaelides</div>
+          <div class="meta">ISBN: 978-1250301697</div>
+          <span class="badge p-standard">P3: MYSTERY</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Face out if space permits, otherwise spine out.
+      </div>
+    </div>
+
+    <div class="card p1">
+      <div class="priority-strip p-urgent"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/16a085/white?text=Fic" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Tomorrow, and Tomorrow</div>
+          <div class="author">Gabrielle Zevin</div>
+          <div class="meta">ISBN: 978-0593321201</div>
+          <span class="badge p-urgent">P1: STAFF PICK</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Requires "Must Read" handwritten card by store manager.
       </div>
     </div>
 
