@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  /* --- WIDGET SCOPED STYLES --- */
+  /* We use a specific ID wrapper to ensure styles don't bleed into the rest of Staffbase */
+  #bam-spotlight-widget {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Header Section */
+  #bam-spotlight-widget .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  #bam-spotlight-widget h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #2c3e50;
+    border-left: 5px solid #d35400; /* Booms Orange */
+    padding-left: 12px;
+  }
+
+  /* Search Bar */
+  #bam-spotlight-widget .search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 300px;
+  }
+
+  #bam-spotlight-widget .search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+  }
+
+  /* Grid Layout */
+  #bam-spotlight-widget .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* Card Styling */
+  #bam-spotlight-widget .card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bam-spotlight-widget .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  /* Priority Strip */
+  #bam-spotlight-widget .priority-strip {
+    height: 6px;
+    width: 100%;
+  }
+  
+  /* Priority Colors */
+  .p-urgent { background-color: #e74c3c; } /* Red */
+  .p-high { background-color: #f39c12; }   /* Orange */
+  .p-standard { background-color: #3498db; } /* Blue */
+
+  /* Card Content */
+  #bam-spotlight-widget .card-body {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    gap: 15px;
+  }
+
+  #bam-spotlight-widget .book-cover {
+    width: 70px;
+    height: 105px;
+    background-color: #ddd;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  #bam-spotlight-widget .info {
+    flex-grow: 1;
+  }
+
+  #bam-spotlight-widget .title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  #bam-spotlight-widget .author {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  #bam-spotlight-widget .meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+
+  /* Badges */
+  #bam-spotlight-widget .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 5px;
+  }
+
+  /* Setup Instruction Area */
+  #bam-spotlight-widget .instruction {
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #444;
+  }
+
+  #bam-spotlight-widget .instruction strong {
+    color: #333;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="bam-spotlight-widget">
+  
+  <div class="header">
+    <h2>Spotlight: Monthly Merch</h2>
+    <div class="search-box">
+      <input type="text" id="bamSearchInput" onkeyup="filterBooks()" placeholder="Search title, ISBN, or location...">
+    </div>
+  </div>
+
+  <div class="grid" id="bamBookGrid">
+
+    <div class="card p1">
+      <div class="priority-strip p-urgent"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/2c3e50/white?text=Book+1" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">The Midnight Library</div>
+          <div class="author">Matt Haig</div>
+          <div class="meta">ISBN: 978-0123456789</div>
+          <span class="badge p-urgent">P1: FRONT TABLE</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Stack height 10+. Face out. Must be set by Tuesday 8AM.
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/e67e22/white?text=Book+2" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Atomic Habits</div>
+          <div class="author">James Clear</div>
+          <div class="meta">ISBN: 978-9876543210</div>
+          <span class="badge p-high">P2: ENDCAP A</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> 3 facings per shelf. Eye level.
+      </div>
+    </div>
+
+    <div class="card p3">
+      <div class="priority-strip p-standard"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/2980b9/white?text=Book+3" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Project Hail Mary</div>
+          <div class="author">Andy Weir</div>
+          <div class="meta">ISBN: 978-5556667778</div>
+          <span class="badge p-standard">P3: SCI-FI SECTION</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Standard shelf talker required.
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/8e44ad/white?text=Book+4" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Lessons in Chemistry</div>
+          <div class="author">Bonnie Garmus</div>
+          <div class="meta">ISBN: 978-1112223334</div>
+          <span class="badge p-high">P2: BESTSELLERS</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Top shelf. Use "Staff Pick" signage.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function filterBooks() {
+    // Simple filter function for search
+    var input = document.getElementById('bamSearchInput');
+    var filter = input.value.toUpperCase();
+    var grid = document.getElementById("bamBookGrid");
+    var cards = grid.getElementsByClassName('card');
+
+    for (var i = 0; i < cards.length; i++) {
+      var title = cards[i].getElementsByClassName("title")[0];
+      var isbn = cards[i].getElementsByClassName("meta")[0];
+      var badge = cards[i].getElementsByClassName("badge")[0];
+      
+      var txtValue = (title.textContent || title.innerText) + " " + (isbn.textContent || isbn.innerText) + " " + (badge.textContent || badge.innerText);
+      
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        cards[i].style.display = "";
+      } else {
+        cards[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
