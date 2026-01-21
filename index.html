@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <style>
   /* --- WIDGET SCOPED STYLES --- */
-  /* We use a specific ID wrapper to ensure styles don't bleed into the rest of Staffbase */
   #bam-spotlight-widget {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #333;
@@ -34,11 +33,19 @@
     padding-left: 12px;
   }
 
+  /* Controls: Search + Print */
+  #bam-spotlight-widget .controls {
+    display: flex;
+    gap: 10px;
+    flex-grow: 1;
+    max-width: 450px;
+    justify-content: flex-end;
+  }
+
   /* Search Bar */
   #bam-spotlight-widget .search-box {
     position: relative;
     flex-grow: 1;
-    max-width: 300px;
   }
 
   #bam-spotlight-widget .search-box input {
@@ -48,6 +55,27 @@
     border-radius: 20px;
     font-size: 14px;
     outline: none;
+    box-sizing: border-box;
+  }
+
+  /* Print Button */
+  #bam-spotlight-widget .print-btn {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  #bam-spotlight-widget .print-btn:hover {
+    background-color: #34495e;
   }
 
   /* Grid Layout */
@@ -67,6 +95,7 @@
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
+    break-inside: avoid; /* Prevents splitting on print pages */
   }
 
   #bam-spotlight-widget .card:hover {
@@ -150,6 +179,54 @@
     color: #333;
   }
 
+  /* --- PRINT STYLES --- */
+  @media print {
+    /* Hide everything on the page except our widget */
+    body * {
+      visibility: hidden;
+    }
+    
+    /* Make the widget visible */
+    #bam-spotlight-widget, #bam-spotlight-widget * {
+      visibility: visible;
+    }
+
+    /* Position the widget at the top-left of the paper */
+    #bam-spotlight-widget {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      border: none;
+      background: white;
+      padding: 0;
+    }
+
+    /* Hide the controls (search and print button) */
+    #bam-spotlight-widget .controls {
+      display: none;
+    }
+
+    /* Adjust layout for paper */
+    #bam-spotlight-widget .grid {
+      display: block; /* Stack items vertically */
+    }
+
+    #bam-spotlight-widget .card {
+      box-shadow: none;
+      border: 1px solid #ccc;
+      margin-bottom: 15px; /* Spacing between items on paper */
+      page-break-inside: avoid; /* Don't cut a book in half */
+    }
+    
+    /* Ensure colors print (browsers sometimes block background colors) */
+    #bam-spotlight-widget .priority-strip, 
+    #bam-spotlight-widget .badge {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -158,8 +235,18 @@
   
   <div class="header">
     <h2>Spotlight: Monthly Merch</h2>
-    <div class="search-box">
-      <input type="text" id="bamSearchInput" onkeyup="filterBooks()" placeholder="Search title, ISBN, or location...">
+    
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" id="bamSearchInput" onkeyup="filterBooks()" placeholder="Search title, ISBN, or location...">
+      </div>
+      <button class="print-btn" onclick="window.print()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+          <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H5v-2z"/>
+        </svg>
+        Print List
+      </button>
     </div>
   </div>
 
@@ -229,12 +316,75 @@
       </div>
     </div>
 
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/d35400/white?text=Cook" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Savor: Simple Recipes</div>
+          <div class="author">Shauna Niequist</div>
+          <div class="meta">ISBN: 978-0310338977</div>
+          <span class="badge p-high">P2: COOKING AISLE</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Waterfall display on middle shelf. Pair with wooden spoon merch.
+      </div>
+    </div>
+
+    <div class="card p1">
+      <div class="priority-strip p-urgent"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/c0392b/white?text=Thriller" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">The Housemaid's Secret</div>
+          <div class="author">Freida McFadden</div>
+          <div class="meta">ISBN: 978-1538742570</div>
+          <span class="badge p-urgent">P1: ENTRY TABLE</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> High stack (20+). Must be the first thing customers see upon entry.
+      </div>
+    </div>
+
+    <div class="card p3">
+      <div class="priority-strip p-standard"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/8e44ad/white?text=Manga" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Chainsaw Man, Vol. 1</div>
+          <div class="author">Tatsuki Fujimoto</div>
+          <div class="meta">ISBN: 978-1974709939</div>
+          <span class="badge p-standard">P3: GRAPHIC NOVELS</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Face out on top shelf of Manga section.
+      </div>
+    </div>
+
+    <div class="card p2">
+      <div class="priority-strip p-high"></div>
+      <div class="card-body">
+        <img src="https://placehold.co/70x105/27ae60/white?text=Kids" alt="Cover" class="book-cover">
+        <div class="info">
+          <div class="title">Bluey: The Pool</div>
+          <div class="author">Penguin Young Readers</div>
+          <div class="meta">ISBN: 978-0593386345</div>
+          <span class="badge p-high">P2: KIDS ENDCAP</span>
+        </div>
+      </div>
+      <div class="instruction">
+        <strong>Setup:</strong> Bin placement on lower shelf endcap (accessible to toddlers).
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
   function filterBooks() {
-    // Simple filter function for search
     var input = document.getElementById('bamSearchInput');
     var filter = input.value.toUpperCase();
     var grid = document.getElementById("bamBookGrid");
